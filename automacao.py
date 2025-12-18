@@ -393,7 +393,7 @@ class App:
             time.sleep(1)
 
             wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'wbutton-container') and contains(@class, 'btn-blue')]"))).click()
-            time.sleep(1)
+            time.sleep(1) 
 
             wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Cancelar']"))).click()
             time.sleep(1)
@@ -425,6 +425,7 @@ class App:
                         self.itens_pulados.append({'Codigo': codigo, 'Descricao': descricao, 'Quantidade': quantidade, 'Motivo': motivo})
                         continue
 
+
                     # Se o item foi encontrado, prossegue com a seleção
                     elemento_handlebar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[starts-with(@id, 'handlebar-') and .//span[normalize-space()='Selecionar']]")))
                     driver.execute_script("arguments[0].scrollIntoView(true);", elemento_handlebar)
@@ -453,6 +454,29 @@ class App:
                     self.itens_pulados.append({'Codigo': codigo, 'Descricao': descricao, 'Quantidade': quantidade, 'Motivo': motivo})
                     continue
 
+                    # APÓS PROCESSAR TODOS OS ITENS DO CSV, CLICA NOS BOTÕES FINAIS
+            try:
+                # Primeiro botão: Cancelar
+                btn_cancelar = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="handlebar-439428"]')))
+                driver.execute_script("arguments[0].scrollIntoView(true);", btn_cancelar)
+                time.sleep(0.5)
+                btn_cancelar.click()
+                self.txt_pulados.insert(tk.END, "✅ Clicou no botão Cancelar (handlebar-439428)\n")
+                time.sleep(1)
+                
+                # Segundo botão: via span
+                elemento_span = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="handlebar-360728"]/span')))
+                driver.execute_script("arguments[0].scrollIntoView(true);", elemento_span)
+                time.sleep(0.5)
+                driver.execute_script("arguments[0].click();", elemento_span)
+                self.txt_pulados.insert(tk.END, "✅ Clicou no botão via span (handlebar-360728)\n")
+                time.sleep(2)  # Aguarda um pouco mais para a ação ser completada
+                
+            except TimeoutException:
+                self.txt_pulados.insert(tk.END, "⚠️ Timeout: botões finais não encontrados\n")
+            except Exception as e_final:
+                self.txt_pulados.insert(tk.END, f"⚠️ Erro ao clicar nos botões finais: {e_final}\n")
+                
             # MOSTRA MENSAGEM DE CONCLUÍDO SEM FECHAR O NAVEGADOR
             self.txt_pulados.insert(tk.END, "\n" + "="*150 + "\n")
             self.txt_pulados.insert(tk.END, "RESUMO FINAL:\n")
