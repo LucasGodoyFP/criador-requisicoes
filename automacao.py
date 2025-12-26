@@ -13,6 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
 import time
+from selenium.webdriver.chrome.options import Options  # Importar Options
 
 class App:
     def __init__(self, root):
@@ -355,11 +356,19 @@ class App:
             # Armazena os itens repetidos removidos
             self.itens_repetidos = itens_repetidos_detalhes
 
-            driver = webdriver.Chrome()
-            driver.maximize_window()
+            # Configurar opções do Chrome para zoom de 80%
+            chrome_options = Options()
+            chrome_options.add_argument("--force-device-scale-factor=0.8")
+            chrome_options.add_argument("--high-dpi-support=0.8")
+            chrome_options.add_argument("--window-size=1920,1080")  # Opcional: definir tamanho da janela
+            
+            driver = webdriver.Chrome(options=chrome_options)
             wait = WebDriverWait(driver, 30)
 
             driver.get("https://zermatt.digisystem.cloud/#/")
+            
+            # Aplicar zoom via JavaScript também (para garantir)
+            driver.execute_script("document.body.style.zoom='80%'")
 
             wait.until(EC.element_to_be_clickable((By.ID, "loginUsername"))).send_keys("lucas.godoy")
             time.sleep(0.3)
