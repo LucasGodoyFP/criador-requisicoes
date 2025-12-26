@@ -75,7 +75,7 @@ class App:
         """Tenta buscar um item várias vezes antes de considerar como não encontrado"""
         for tentativa in range(max_tentativas):
             try:
-                time.sleep(1.5) #remover essa linha
+                time.sleep(1.5) 
                 codigo_input = wait.until(EC.presence_of_element_located((By.NAME, "CD_CODIGO")))
                 codigo_input.clear()
                 codigo_input.send_keys(codigo)
@@ -461,7 +461,6 @@ class App:
                 driver.execute_script("arguments[0].scrollIntoView(true);", btn_cancelar)
                 time.sleep(0.5)
                 btn_cancelar.click()
-                self.txt_pulados.insert(tk.END, "✅ Clicou no botão Cancelar (handlebar-439428)\n")
                 time.sleep(1)
                 
                 # Segundo botão: via span
@@ -469,7 +468,6 @@ class App:
                 driver.execute_script("arguments[0].scrollIntoView(true);", elemento_span)
                 time.sleep(0.5)
                 driver.execute_script("arguments[0].click();", elemento_span)
-                self.txt_pulados.insert(tk.END, "✅ Clicou no botão via span (handlebar-360728)\n")
                 time.sleep(2)  # Aguarda um pouco mais para a ação ser completada
                 
             except TimeoutException:
