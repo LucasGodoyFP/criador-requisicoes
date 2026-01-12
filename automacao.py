@@ -280,7 +280,7 @@ class App:
                                     quantidade *= 50
                                     regra_aplicada = "Multiplicado por 50"
                                     foi_ajustado = True
-                                elif codigo in ['890', '889', '15','1070','1071']:
+                                elif codigo in ['890', '889', '15','1070','1071','981']:
                                     quantidade *= 100
                                     regra_aplicada = "Multiplicado por 100"
                                     foi_ajustado = True
