@@ -372,7 +372,7 @@ class App:
 
             wait.until(EC.element_to_be_clickable((By.ID, "loginUsername"))).send_keys("lucas.godoy")
             time.sleep(0.3)
-            wait.until(EC.element_to_be_clickable((By.ID, "loginPassword"))).send_keys("Tasy!007")
+            wait.until(EC.element_to_be_clickable((By.ID, "loginPassword"))).send_keys("Tasy!8558")
             time.sleep(0.3)
             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input.btn-green.w-login-button.w-login-button--green"))).click()
             time.sleep(1)
