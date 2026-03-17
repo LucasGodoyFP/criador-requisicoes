@@ -284,6 +284,10 @@ class App:
                                     quantidade *= 100
                                     regra_aplicada = "Multiplicado por 100"
                                     foi_ajustado = True
+                                elif codigo in ['1723', '1724']:
+                                    quantidade *= 500
+                                    regra_aplicada = "Multiplicado por 500"
+                                    foi_ajustado = True
                                 
                                 # Verifica se o código já existe no dicionário
                                 if codigo in itens_agrupados:
